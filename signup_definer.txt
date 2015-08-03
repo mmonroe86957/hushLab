@@ -1,0 +1,31 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `do_createUser`(
+	IN p_name VARCHAR(45),
+	IN p_username VARCHAR(45),
+	IN p_password VARCHAR(45),
+	IN p_email VARCHAR(60)
+)
+Begin 
+	if ( select exists (select 1 from member_login where member_username = p_username) ) THEN
+		select  'Username Exists';
+		
+	ELSE
+	
+		insert into member_login
+		(
+			member_name,
+			member_username,
+			member_password,
+			member_email
+		)
+		values 
+		(
+			p_name,
+			p_username,
+			p_password,
+			p_email
+		);
+	END IF;
+END$$
+DELIMITER ;
+		
